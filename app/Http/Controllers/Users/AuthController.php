@@ -59,7 +59,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 "success" => false,
-                "message" => "Please enter correct login details",
+                "message" => "Login details incorrect",
             ], 400);
         }
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         $input = $request->only("email", "password");
 
-        if (!$jwt_token = auth('users')->Auth::attempt($input)) {
+        if (!$jwt_token = auth('users')->attempt($input)) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid email or password'

@@ -20,12 +20,20 @@ class Movies extends Controller
     }
     /**
      * Display a listing of the movies.
-     *
+     
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = auth("users")->authenticate($request->token);
+        $user_id = $user->id;
+
+        $movies = Movie::where("user_id", $user_id)->get();
+
+        return response()->json([
+            "success" => true,
+            "data" => $movies,
+        ], 200);
     }
 
     /**
@@ -73,14 +81,18 @@ class Movies extends Controller
      */
     public function update(Request $request, $movie)
     {
-        // get the request data
-        $data = $request->all();
+        $findData = $this->movie::find($movie);
 
-        // update the player
-        $movie->fill($data)->save();
+        $findData->movieTitle = $request->movieTitle;
+        $findData->movieDirector = $request->movieDirector;
+        $findData->movieGenre = $request->movieGenre;
+        $findData->movieCast = $request->movieCast;
+        $findData->save();
 
-        // return the updated movie in the resource format
-        return new MovieResource($movie);
+        return response()->json([
+            "success" => true,
+            "message" => "movie updated successfully",
+        ], 200);
     }
 
     /**

@@ -35,8 +35,7 @@ Route::group(
     function () {
         Route::post("movies", "Movies@store");
         Route::get("movies", "Movies@index");
-        Route::patch("movies/{movie}", "Movies@update");
+        Route::put("movies/{movie}", "Movies@update");
         Route::delete("movies/{movie}", "Movies@destroy");
-        Route::get("movies/{movie}", "Movies@getSingleData");
     }
 );

@@ -77,21 +77,21 @@ class Movies extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MovieRequest $request, $movie)
+    public function update(MovieRequest $request, Movie $movie)
     {
-        $findData = Movie::find($movie);
+        $data = $request->only([
+            "movieTitle",
+            "movieDirector",
+            "movieGenre",
+            "movieCast",
+            "movieWatched",
+            "user_id"
+        ]);
 
-        $findData->movieTitle = $request->movieTitle;
-        $findData->movieDirector = $request->movieDirector;
-        $findData->movieGenre = $request->movieGenre;
-        $findData->movieCast = $request->movieCast;
-        $findData->movieWatched = $request->movieWatched;
-        $findData->save();
+        // update the movie
+        $movie->fill($data)->save();
 
-        return response()->json([
-            "success" => true,
-            "message" => "movie updated successfully",
-        ], 200);
+        return new MovieResource($movie);
     }
 
     /**

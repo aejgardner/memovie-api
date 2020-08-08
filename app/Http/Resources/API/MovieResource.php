@@ -20,6 +20,7 @@ class MovieResource extends JsonResource
             "movieDirector" => $this->movieDirector,
             "movieGenre" => $this->movieGenre,
             "movieCast" => $this->movieCast,
+            "movieWatched" => $this->movieWatched,
             "user_id" => $this->user_id,
         ];
     }

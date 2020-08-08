@@ -87,6 +87,7 @@ class Movies extends Controller
         $findData->movieDirector = $request->movieDirector;
         $findData->movieGenre = $request->movieGenre;
         $findData->movieCast = $request->movieCast;
+        $findData->movieWatched = $request->movieWatched;
         $findData->save();
 
         return response()->json([

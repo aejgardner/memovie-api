@@ -24,11 +24,6 @@ Route::group(
     function () {
         Route::post('register', [AuthController::class, "register"]);
         Route::post('login', [AuthController::class, "login"]);
-        Route::post("movie/add", "Movies@store");
-        Route::get("movie/get-all/{token}", "Movies@index");
-        Route::patch("movie/update/{id}", "Movies@update");
-        Route::delete("movie/delete/{id}", "Movies@destroy");
-        Route::get("movie/get-single/{id}", "Movies@getSingleData");
     }
 );
 
@@ -40,8 +35,8 @@ Route::group(
     function () {
         Route::post("movies", "Movies@store");
         Route::get("movies", "Movies@index");
-        Route::patch("movie/{movie}", "Movies@update");
-        Route::delete("movie/{movie}", "Movies@destroy");
-        Route::get("movie/{movie}", "Movies@getSingleData");
+        Route::patch("movies/{movie}", "Movies@update");
+        Route::delete("movies/{movie}", "Movies@destroy");
+        Route::get("movies/{movie}", "Movies@getSingleData");
     }
 );

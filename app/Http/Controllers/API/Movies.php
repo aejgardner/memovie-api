@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Request\API\MovieRequest;
+use App\Http\Requests\API\MovieRequest;
 use App\Http\Resources\API\MovieResource;
 use App\Movie;
 
@@ -42,7 +42,7 @@ class Movies extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieRequest $request)
     {
         $user_token = $request->token;
         $user = auth("users")->authenticate($user_token);
@@ -79,9 +79,9 @@ class Movies extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $movie)
+    public function update(MovieRequest $request, $movie)
     {
-        $findData = $this->movie::find($movie);
+        $findData = Movie::find($movie);
 
         $findData->movieTitle = $request->movieTitle;
         $findData->movieDirector = $request->movieDirector;

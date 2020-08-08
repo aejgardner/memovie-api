@@ -11,12 +11,11 @@ use App\Movie;
 class Movies extends Controller
 {
 
-    protected $movie;
+    // protected $movie;
 
     public function __construct()
     {
         $this->middleware('auth:users');
-        $this->movie = new Movie;
     }
     /**
      * Display a listing of the movies.
@@ -44,21 +43,20 @@ class Movies extends Controller
      */
     public function store(MovieRequest $request)
     {
+        $movie = new Movie;
+
         $user_token = $request->token;
         $user = auth("users")->authenticate($user_token);
         $user_id = $user->id;
 
-        $this->movie->user_id = $user_id;
-        $this->movie->movieTitle = $request->movieTitle;
-        $this->movie->movieDirector = $request->movieDirector;
-        $this->movie->movieGenre = $request->movieGenre;
-        $this->movie->movieCast = $request->movieCast;
-        $this->movie->save();
+        $movie->user_id = $user_id;
+        $movie->movieTitle = $request->movieTitle;
+        $movie->movieDirector = $request->movieDirector;
+        $movie->movieGenre = $request->movieGenre;
+        $movie->movieCast = $request->movieCast;
+        $movie->save();
 
-        return response()->json([
-            "success" => true,
-            "message" => "movie saved successfully"
-        ], 200);
+        return new MovieResource($movie);
     }
 
     /**

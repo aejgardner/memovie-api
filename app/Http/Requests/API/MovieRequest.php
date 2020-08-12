@@ -24,7 +24,6 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required',
             'movieTitle' => 'required|string'
         ];
     }
